@@ -11,7 +11,7 @@
 
 #include <LiquidCrystal_I2C.h>
 // set the LCD address to 0x27 or 0x3F for a 16 chars and 2 line display
-static LiquidCrystal_I2C lcd(0x27,16,2);
+static LiquidCrystal_I2C lcd(0x3F,16,2);
 extern bool t1,t2;
 
 #include <Arduino.h>

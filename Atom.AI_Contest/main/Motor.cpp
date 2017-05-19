@@ -30,21 +30,22 @@ MotorController* MotorController::GetInstance()
 void MotorController::updateMotor(uint8_t g_current_condition,bool isFollowLeft)
 {
 	//phphat test
-	if(g_isBoosting && (g_startBoostTime > (millis() - BOOST_MOTOR_TIME)))
+	//if(g_isBoosting && (g_startBoostTime > (millis() - BOOST_MOTOR_TIME)))
 	{
 		//motor(MAIN_MOTOR, BACKWARD, MOTOR_BACKWARD_SPEED);
-		return;
+		//return;
 	}
-	else if(g_isBoosting)
+	//else if(g_isBoosting)
 	{
 
-		g_isBoosting = false;
-		motor(MAIN_MOTOR, g_currentCommand, g_currentSpeed, false);
+		//g_isBoosting = false;
+		//motor(MAIN_MOTOR, g_currentCommand, g_currentSpeed, false);
 	}
 
 	int detalDistance = fabs(DISTANCE->getAvrTotal() - (DISTANCE->d_front + DISTANCE->d_right + DISTANCE->d_left)) ;
 
-	if( detalDistance < 20)
+	//if( detalDistance < 20)
+	if(0)
 	{
 		DEBUG_PRINTLN("updateMotor  STUCK <<<<<<<<<<<<<<<<<");
 		if (is_go_FORWARD) // go forward and stuck => go back
@@ -98,21 +99,21 @@ void MotorController::updateMotor(uint8_t g_current_condition,bool isFollowLeft)
 			last_trigger_backward = millis();
 		}
 	}
-	else if(DISTANCE->isSlowSpeed)
-	{
+	//else if(DISTANCE->isSlowSpeed)
+	//{
 		// go head
-		DEBUG_PRINTLN("updateMotor Go FORWARD SLOW");
-		is_go_FORWARD = true;
-		motor(MAIN_MOTOR, FORWARD, MOTOR_LOW_SPEED);
-	}
+		//DEBUG_PRINTLN("updateMotor Go FORWARD SLOW");
+		//is_go_FORWARD = true;
+		//motor(MAIN_MOTOR, FORWARD, MOTOR_LOW_SPEED);
+	//}
 	else if(STEERING->isSteeringRight || STEERING->isSteeringLeft)
 	{
-		DEBUG_PRINTLN("updateMotor Go FORWARD !!");
+		DBG("updateMotor Go FORWARD !!");
 		is_go_FORWARD = true;
 
 		if(g_currentSpeed == MOTOR_MAX_SPEED)
 		{
-			motor(MAIN_MOTOR, FORWARD, 0);
+			//motor(MAIN_MOTOR, FORWARD, 0);
 			delay(500);
 		}
 		motor(MAIN_MOTOR, FORWARD, MOTOR_NORMAL_SPEED);
@@ -129,7 +130,13 @@ void MotorController::updateMotor(uint8_t g_current_condition,bool isFollowLeft)
 
 void MotorController::motor(int nMotor, int command, int speed, bool needCheckBoost)
 {
-	if(needCheckBoost && speed > 0)
+	DBG("command: ");
+	DBG(command);
+	DBG(", speed: ");
+	DBG_LN(speed);
+
+	if(0)
+	//if(needCheckBoost && speed > 0)
 	{
 		if(g_currentCommand != command)
 		{

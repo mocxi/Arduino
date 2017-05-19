@@ -20,14 +20,16 @@
 #define MOTOR_OFF 0
 #define STEERING_OFF 0
 
-#define BACKWARD_DELAY 2
+#define BACKWARD_DELAY 100
+#define BACKWARD_TIME 200
+
 
 #define MAIN_MOTOR 3
 // Motor speed
 // MIN_SPEED to run is 140
 #define MOTOR_MAX_SPEED 255
-#define MOTOR_NORMAL_SPEED 160
-#define MOTOR_LOW_SPEED 140
+#define MOTOR_NORMAL_SPEED 200
+//#define MOTOR_LOW_SPEED 140
 #define MOTOR_BACKWARD_SPEED 140 //80
 #define MOTOR_BOOST_SPEED 255
 
@@ -76,15 +78,17 @@ extern float g_startBoostTime;
 #define A_165 A_0 + 165 // 15 degrees
 #define A_180 A_0 + 180 // 15 degrees
 
-#define BALANCING_TIME 200
+#define BALANCING_TIME 50
+#define STEERING_TIME 200 //milliseconds
 //khai add
-#define HARDTURN_ANGLE 30
-#define STEERING_ANGLE 8
-#define STEERING_BACK_ANGLE 15
+#define HARDTURN_ANGLE 35
+#define STEERING_ANGLE 4
+#define STEERING_SMALL_ANGLE 35
+#define STEERING_BACK_ANGLE 20
 //khai end
 
 //Huy.LH + define server angle
-#define SERVO_FRONT_ANGLE 80
+#define SERVO_FRONT_ANGLE 75
 #define SERVO_LEFT_45 45
 #define SERVO_RIGHT_45 135
 #define SERVO_LEFT_MAX 29

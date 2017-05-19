@@ -98,10 +98,10 @@ void loop()
 	//Huy.LH + Backward to escape wall stuck
 	if(MOTOR->m_isBackward)
 	{
-		if(MOTOR->last_trigger_backward < millis() - BACKWARD_DELAY)
+		if(MOTOR->last_trigger_backward < millis() - BACKWARD_TIME)
 		{
 			MOTOR->m_isBackward = false;
-			delay(500);
+			delay(BACKWARD_DELAY);
 		}
 		else
 		{
@@ -119,7 +119,7 @@ void loop()
 	//try to balance the race
 	STEERING->updateSteeringServo();
 	// Debug +
-	LCD_PRINT_1 (0,"Dir:" + (String)DIRECTION->g_current_condition + " Spd:" + (String)MOTOR->g_currentSpeed);
+	LCD_PRINT_1 (0,"B:" + (String)MOTOR->m_isBackward + " Spd:" + (String)MOTOR->g_currentSpeed);
 
 	LCD_PRINT_2 (0,"L" + (String)(DISTANCE->d_left) + " F" + (String) (DISTANCE->d_front) + " R" + (String) (DISTANCE->d_right) );
 

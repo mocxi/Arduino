@@ -9,7 +9,7 @@
 //Huy.LH + new steering controller
 //#define MIN_DELAY_SONAR_TIME 40 //milliseconds
 #define LIMIT_STEERING_TURNING_ANGLE 10
-#define STEERING_DELAY 500 //milliseconds
+
 
 //Huy.LH backward for a time
 
@@ -24,6 +24,7 @@ public:
   void init(/* arguments */);
 
   unsigned long m_last_steering_update, m_last_balancing;
+  unsigned long m_startSteeringTime;
   bool m_isBalancing;
 
   //Use uint8_t (1 byte = 255) for angle because the angle limit is between 0-180
