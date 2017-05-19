@@ -5,8 +5,10 @@
 #include "math.h"
 #include "Motor.h"
 #include "Distance.h"
+#include "IR_Distance.h"
 #include "Steering.h"
 #include "Compass.h"
+
 
 
 
@@ -26,6 +28,7 @@ void setup()
 	DEBUG_PRINTLN("Setup start!");
 
 	DISTANCE->init();
+	IR_DISTANCE->init();
 	DIRECTION->init();
 	STEERING->init();
 	//Huy.LH + compass sensor
@@ -93,6 +96,9 @@ void loop()
 	#endif
 	//Update distance from sonar sensor
 	DISTANCE->updateDistance();
+	//Update distance from IR sensor
+	IR_DISTANCE->updateIR_distance();
+
 	//Update direction base on distance
 	DIRECTION->updateDirection(DISTANCE->d_left,DISTANCE->d_front,DISTANCE->d_right);
 	//Huy.LH + Backward to escape wall stuck

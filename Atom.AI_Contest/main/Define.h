@@ -98,6 +98,8 @@ extern float g_startBoostTime;
 
 extern bool g_needUpdateMotor;
 
+//IR Distance --------------------------------------------------
+#define IR_DISTANCE ir_distance::GetInstance()
 //Distance --------------------------------------------------
 #define DISTANCE distance::GetInstance()
 //Direction --------------------------------------------------
