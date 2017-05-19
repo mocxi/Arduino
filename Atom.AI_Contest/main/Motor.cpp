@@ -31,37 +31,37 @@ void MotorController::updateMotor(uint8_t g_current_condition,bool isFollowLeft)
 {
 	//phphat test
 	//if(g_isBoosting && (g_startBoostTime > (millis() - BOOST_MOTOR_TIME)))
-	{
+	// {
 		//motor(MAIN_MOTOR, BACKWARD, MOTOR_BACKWARD_SPEED);
 		//return;
-	}
+	// }
 	//else if(g_isBoosting)
-	{
+	// {
 
 		//g_isBoosting = false;
 		//motor(MAIN_MOTOR, g_currentCommand, g_currentSpeed, false);
-	}
+	// }
 
-	int detalDistance = fabs(DISTANCE->getAvrTotal() - (DISTANCE->d_front + DISTANCE->d_right + DISTANCE->d_left)) ;
+	// int detalDistance = fabs(DISTANCE->getAvrTotal() - (DISTANCE->d_front + DISTANCE->d_right + DISTANCE->d_left)) ;
 
 	//if( detalDistance < 20)
-	if(0)
-	{
-		DEBUG_PRINTLN("updateMotor  STUCK <<<<<<<<<<<<<<<<<");
-		if (is_go_FORWARD) // go forward and stuck => go back
-		{
-			DEBUG_PRINTLN(" GO BACK __________ <<<<<<<<<<<<<<<<<");
-			is_go_FORWARD = false;
-			motor(MAIN_MOTOR, BACKWARD, MOTOR_BACKWARD_SPEED);
-		}
-		else  // go back and stuck => go forward
-		{
-			DEBUG_PRINTLN(" GO FORWARD __________ <<<<<<<<<<<<<<<<<");
-			is_go_FORWARD = true;
-			motor(MAIN_MOTOR, FORWARD, MOTOR_NORMAL_SPEED);
-		}
-		return;
-	}
+	// if(0)
+	// {
+	// 	DEBUG_PRINTLN("updateMotor  STUCK <<<<<<<<<<<<<<<<<");
+	// 	if (is_go_FORWARD) // go forward and stuck => go back
+	// 	{
+	// 		DEBUG_PRINTLN(" GO BACK __________ <<<<<<<<<<<<<<<<<");
+	// 		is_go_FORWARD = false;
+	// 		motor(MAIN_MOTOR, BACKWARD, MOTOR_BACKWARD_SPEED);
+	// 	}
+	// 	else  // go back and stuck => go forward
+	// 	{
+	// 		DEBUG_PRINTLN(" GO FORWARD __________ <<<<<<<<<<<<<<<<<");
+	// 		is_go_FORWARD = true;
+	// 		motor(MAIN_MOTOR, FORWARD, MOTOR_NORMAL_SPEED);
+	// 	}
+	// 	return;
+	// }
 
 
 	//___________________
@@ -81,7 +81,6 @@ void MotorController::updateMotor(uint8_t g_current_condition,bool isFollowLeft)
 			steeringResult = STEERING->setServoTurn(SERVO_FRONT_ANGLE - (STEERING->SteeringAngle_Current - SERVO_FRONT_ANGLE)/2);
 		}
 		else{
-
 			if(DISTANCE->d_left > DISTANCE->d_right)
 			{
 				steeringResult = STEERING->setServoTurn(SERVO_FRONT_ANGLE - STEERING_BACK_ANGLE);
@@ -134,22 +133,27 @@ void MotorController::motor(int nMotor, int command, int speed, bool needCheckBo
 	DBG(command);
 	DBG(", speed: ");
 	DBG_LN(speed);
-
-	if(0)
-	//if(needCheckBoost && speed > 0)
+	if(g_currentSpeed == speed)
 	{
-		if(g_currentCommand != command)
-		{
-			DEBUG_PRINT("Boost ");DEBUG_PRINT(command);DEBUG_PRINT(", speed: ");DEBUG_PRINTLN(speed);
-
-			g_currentCommand = command;
-			g_currentSpeed = speed;
-			g_startBoostTime = millis();
-			g_isBoosting = true;
-			motor(nMotor, command, MOTOR_BOOST_SPEED, false);
-			return;
-		}
+		return;
 	}
+	g_currentCommand = command;
+	g_currentSpeed = speed;
+	// if(0)
+	// //if(needCheckBoost && speed > 0)
+	// {
+	// 	if(g_currentCommand != command)
+	// 	{
+	// 		DEBUG_PRINT("Boost ");DEBUG_PRINT(command);DEBUG_PRINT(", speed: ");DEBUG_PRINTLN(speed);
+	//
+	//
+	// 		g_currentSpeed = speed;
+	// 		g_startBoostTime = millis();
+	// 		g_isBoosting = true;
+	// 		motor(nMotor, command, MOTOR_BOOST_SPEED, false);
+	// 		return;
+	// 	}
+	// }
   int motorA, motorB;
 
   if (nMotor >= 1 && nMotor <= 4)

@@ -23,9 +23,12 @@ public:
   steering();
   void init(/* arguments */);
 
-  unsigned long m_last_steering_update, m_last_balancing;
+  unsigned long m_last_steering_update;
   unsigned long m_startSteeringTime;
+  #if BALANCE_STEERING
   bool m_isBalancing;
+  unsigned long m_last_balancing;
+  #endif
 
   //Use uint8_t (1 byte = 255) for angle because the angle limit is between 0-180
   uint8_t SteeringAngle_Target, SteeringAngle_Current;

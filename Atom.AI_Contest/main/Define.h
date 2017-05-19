@@ -80,12 +80,20 @@ extern float g_startBoostTime;
 
 #define BALANCING_TIME 50
 #define STEERING_TIME 200 //milliseconds
+
+
 //khai add
 #define HARDTURN_ANGLE 35
-#define STEERING_ANGLE 4
 #define STEERING_SMALL_ANGLE 35
 #define STEERING_BACK_ANGLE 20
 //khai end
+
+//Huy.LH + Balancing
+#define BALANCE_STEERING 1
+#if BALANCE_STEERING
+#define STEERING_BALANCE_ANGLE 4
+#endif
+//Huy.LH -
 
 //Huy.LH + define server angle
 #define SERVO_FRONT_ANGLE 75
@@ -99,7 +107,10 @@ extern float g_startBoostTime;
 extern bool g_needUpdateMotor;
 
 //IR Distance --------------------------------------------------
-#define IR_DISTANCE ir_distance::GetInstance()
+#define USED_IR 0
+#if USED_IR
+ #define IR_DISTANCE ir_distance::GetInstance()
+#endif
 //Distance --------------------------------------------------
 #define DISTANCE distance::GetInstance()
 //Direction --------------------------------------------------
@@ -125,6 +136,8 @@ extern bool g_needUpdateMotor;
 #define MAX_DISTANCE_FROM_WALL 80
 #define MAX_DISTANCE_FRONT_WALL 70
 #define SLOW_SPEED_DISTANCE_FRONT_WALL 95
+
+#define DISTANCE_NEED_SIDE_STEERING 20
 
 #define PING_MEAN_DELAY 29000 //microseconds
 

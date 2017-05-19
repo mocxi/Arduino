@@ -20,8 +20,11 @@ SteeringDirection_Current(STRAIGHT)
 void steering::init(){
 	/* code */
 	SteeringServo.write(SERVO_FRONT_ANGLE);
+
+#if BALANCE_STEERING
 	m_isBalancing = true;
 	m_last_balancing = 0;
+#endif
 }
 steering* steering::GetInstance()
 {
@@ -53,13 +56,13 @@ bool steering::setServoTurn(uint8_t angle)
 	{
 		//if(!g_isMinFront) // phphat : Should not add condition here. It can make us out of control the flow. Should add condition outside this function .  !!!
 		{
-			if(angle > (SERVO_FRONT_ANGLE + STEERING_ANGLE))
+			if(angle > (SERVO_FRONT_ANGLE + STEERING_BALANCE_ANGLE))
 			{
 				isSteeringLeft = false;
 				isSteeringRight = true;
 				m_startSteeringTime = millis();
 			}
-			else if(angle < (SERVO_FRONT_ANGLE - STEERING_ANGLE))
+			else if(angle < (SERVO_FRONT_ANGLE - STEERING_BALANCE_ANGLE))
 			{
 				isSteeringLeft = true;
 				isSteeringRight = false;
@@ -112,7 +115,7 @@ void steering::updateSteeringServo()
 			}
 
 			case LEFT_WALL: // + - -
-				if(DIRECTION->isFollowLeft)
+				if(DIRECTION->isFollowLeft && DISTANCE->d_left > DISTANCE_NEED_SIDE_STEERING)
 				{
 					//90 degree, forward
 					//DEBUG_PRINTLN("+ - - 90 degree, forward");
@@ -125,7 +128,7 @@ void steering::updateSteeringServo()
 				}
 				break;
 			case FRONT_WALL: // - + -
-				if(DIRECTION->isFollowLeft)
+				if(DIRECTION->isFollowLeft && DISTANCE->d_right > DISTANCE_NEED_SIDE_STEERING)
 				{
 					//turn left at 45 degree
 					//DEBUG_PRINTLN("- + - turn left at 45 degree");
@@ -170,12 +173,14 @@ void steering::updateSteeringServo()
 				//DEBUG_PRINTLN("+ + + 90 degree, slop detected, forward");
 				//turnSteeringServo(STRAIGHT, A_90);
 				STEERING->setServoTurn(SERVO_FRONT_ANGLE);
+				DISTANCE->m_isMinFront = true;
 				break;
 
 		}
 	}
 	//khai end
-	//Balance left right
+//Huy.LH + Balancing
+#if BALANCE_STEERING
 	if(DISTANCE->d_front > MAX_DISTANCE_FRONT_WALL
 		&& !(isSteeringLeft || isSteeringRight)
 		&& !MOTOR->m_isBackward
@@ -190,12 +195,12 @@ void steering::updateSteeringServo()
 			if(DISTANCE->d_left > DISTANCE->d_right)
 			{
 				//DBG_LN(" left");
-				setServoTurn(SERVO_FRONT_ANGLE + STEERING_ANGLE);
+				setServoTurn(SERVO_FRONT_ANGLE + STEERING_BALANCE_ANGLE);
 			}
 			else
 			{
 				//DBG_LN(" right");
-				setServoTurn(SERVO_FRONT_ANGLE - STEERING_ANGLE);
+				setServoTurn(SERVO_FRONT_ANGLE - STEERING_BALANCE_ANGLE);
 			}
 			m_isBalancing = true;
 		}
@@ -204,7 +209,6 @@ void steering::updateSteeringServo()
 			//DBG_LN("Balancing off");
 			m_isBalancing = false;
 			setServoTurn(SERVO_FRONT_ANGLE);
-			m_isBalancing = false;
 		}
 		else
 		{
@@ -213,6 +217,8 @@ void steering::updateSteeringServo()
 
 		m_last_balancing = millis();
 	}
+#endif
+//Huy.LH -
 }
 
 void steering::turnSteeringServo(TurnDirection direction, const uint8_t& angle)

@@ -5,7 +5,9 @@
 #include "math.h"
 #include "Motor.h"
 #include "Distance.h"
-#include "IR_Distance.h"
+#if USED_IR
+ #include "IR_Distance.h"
+#endif
 #include "Steering.h"
 #include "Compass.h"
 
@@ -28,7 +30,9 @@ void setup()
 	DEBUG_PRINTLN("Setup start!");
 
 	DISTANCE->init();
-	IR_DISTANCE->init();
+	#if USED_IR
+	 IR_DISTANCE->init();
+	#endif
 	DIRECTION->init();
 	STEERING->init();
 	//Huy.LH + compass sensor
@@ -97,7 +101,9 @@ void loop()
 	//Update distance from sonar sensor
 	DISTANCE->updateDistance();
 	//Update distance from IR sensor
+	#if USED_IR
 	IR_DISTANCE->updateIR_distance();
+	#endif
 
 	//Update direction base on distance
 	DIRECTION->updateDirection(DISTANCE->d_left,DISTANCE->d_front,DISTANCE->d_right);
