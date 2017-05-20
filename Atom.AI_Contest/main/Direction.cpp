@@ -3,6 +3,11 @@
 #include "Steering.h"
 #include "Distance.h"
 
+#if USE_IR
+	#include "IR_Distance.h"
+#endif
+
+
 //Init
 direction* direction::GetInstance()
 {
@@ -34,9 +39,27 @@ void direction::init()
 
 void direction::updateDirection(const uint8_t d_left, const uint8_t d_front, const uint8_t d_right)
 {
+#if USE_IR
+//Huy.LH + IR_2 and IR_3 next to the front
+	isWallInFront = ((d_front < MAX_DISTANCE_FRONT_WALL) ||
+				IR_DISTANCE->getIR_Status(ir_distance::IR_2) ||
+				IR_DISTANCE->getIR_Status(ir_distance::IR_3));
+
+//IR_LEFT is IR_1 and IR_2
+	isWallOnLeft = ((d_left < MAX_DISTANCE_FROM_WALL) ||
+				IR_DISTANCE->getIR_Status(ir_distance::IR_LEFT));
+
+//IR_RIGHT is IR_3 and IR_4
+	isWallOnRight = ((d_right < MAX_DISTANCE_FROM_WALL) ||
+				IR_DISTANCE->getIR_Status(ir_distance::IR_RIGHT));
+//Need detected stuckk after 2second here
+//Huy.LH -
+#else
+	isWallInFront = (d_front < MAX_DISTANCE_FRONT_WALL);
 	isWallOnLeft = (d_left < MAX_DISTANCE_FROM_WALL);
 	isWallOnRight = (d_right < MAX_DISTANCE_FROM_WALL);
-	isWallInFront = (d_front < MAX_DISTANCE_FRONT_WALL);
+#endif
+
 
 
 	isSlowSpeed = (d_front < SLOW_SPEED_DISTANCE_FRONT_WALL);
@@ -52,11 +75,12 @@ void direction::updateDirection(const uint8_t d_left, const uint8_t d_front, con
 	g_current_condition = ( isWallOnLeft ? ( 1<<0 ) : 0 ) +
 				( isWallInFront  ? ( 1<<1 ) : 0 ) +
 				( isWallOnRight ? ( 1<<2 ) : 0 );
+
 	//g_current_condition if there is wall on left, in front or on right side of the car
 	//...<left><front><right>
 	//+: there is a wall on that side
 	//-: there is no wall on that side
-	DEBUG_PRINT("<left><front><right>:");
+	// DEBUG_PRINT("<left><front><right>:");
 #if DEBUG_LEVEL_INFO
 	if(last_print_log < millis() - PRINT_LOG_DELAY)
 	{

@@ -1,5 +1,8 @@
 #include "Distance.h"
 #include <DebugUtils.h>
+#if USE_IR
+	#include "IR_Distance.h"
+#endif
 
 //Init
 int avr_front , avr_right , avr_left, avr_TOTAL = 0;
@@ -55,7 +58,9 @@ void distance::init()
 		arr_right_stack[i] = d_right + 10;
 		arr_left_stack[i] = d_left + 10;
 	}
-
+	#if USE_IR
+	 IR_DISTANCE->init();
+	#endif
   isFollowLeft = (d_right > d_left);
 }
 
@@ -164,6 +169,9 @@ int distance::get_distance(NewPing sonar , int min , int max , int last_distance
 
 void distance::updateDistance()
 {
+	#if USE_IR
+		IR_DISTANCE->updateIR_distance();
+	#endif
 	if(Last_distance_check < (millis()-CHECK_DISTANCE_DELAY))
 	{
 		updateDistanceStack();

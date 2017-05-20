@@ -13,29 +13,54 @@ ir_distance* ir_distance::GetInstance()
 
 ir_distance::ir_distance()
 {
-  pin1 = 2;
-  pin2 = 3;
-  pin3 = 4;
-  pin4 = 5;
+	IR_status[4] = {false};
+}
+
+bool ir_distance::getIR_Status(const IR& ir)
+{
+	switch (ir) {
+		case IR_1:
+		case IR_2:
+		case IR_3:
+		case IR_4:
+		{
+			return IR_status[ir];
+			// break;
+		}
+		case IR_LEFT:
+		{
+			return IR_status[IR_1] || IR_status[IR_2];
+		}
+		case IR_RIGHT:
+		{
+			return IR_status[IR_3] || IR_status[IR_4];
+		}
+		case IR_ANY:
+			return IR_status[IR_1] || IR_status[IR_2] || IR_status[IR_3] || IR_status[IR_4];
+		default:
+		{
+			return false;
+		}
+	}
 }
 
 void ir_distance::init()
 {
-	pinMode(pin1,INPUT);
-	pinMode(pin2,INPUT);
-	pinMode(pin3,INPUT);
-	pinMode(pin4,INPUT);
+	pinMode(IR_PIN_1,INPUT);
+	pinMode(IR_PIN_2,INPUT);
+	pinMode(IR_PIN_3,INPUT);
+	pinMode(IR_PIN_4,INPUT);
 }
 
 void ir_distance::updateIR_distance()
 {
-	IR_status[0]=digitalRead(pin1);
-	IR_status[1]=digitalRead(pin2);
-	IR_status[2]=digitalRead(pin3);
-	IR_status[3]=digitalRead(pin4);
+	IR_status[0]=digitalRead(IR_PIN_1);
+	IR_status[1]=digitalRead(IR_PIN_2);
+	IR_status[2]=digitalRead(IR_PIN_3);
+	IR_status[3]=digitalRead(IR_PIN_4);
 
 	for (int i = 0 ; i < 4 ; i++)
-	{		
+	{
 		DBG("updateir_distance [] ");
 		DBG((String)i);
 		DBG ("] : ");

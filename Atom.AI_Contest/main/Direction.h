@@ -16,9 +16,10 @@ enum TurnDirection{
 
 class direction{
 	#if DEBUG_LEVEL_INFO
-	unsigned long last_print_log;
+	unsigned long last_print_log, start_side_detected_time;
 	#endif
 public:
+	bool m_isStuck;
 	bool isFollowLeft, isWallOnLeft, isWallOnRight, isWallInFront, isSlowSpeed;
 	uint8_t g_current_condition = 0;
 	direction();

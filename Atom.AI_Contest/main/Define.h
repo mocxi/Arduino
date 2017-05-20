@@ -13,7 +13,11 @@
 #define TEST_SERVO_SPIN 0
 #define TEST_PING 0
 //khai end
-
+//Huy.LH encoder
+#define USE_ENCODER 1
+#if USE_ENCODER
+#define ENCODER encoder::GetInstance()
+#endif
 // MOTOR ----------------------------------------------------------
 #define MOTOR MotorController::GetInstance()
 
@@ -23,8 +27,15 @@
 #define BACKWARD_DELAY 100
 #define BACKWARD_TIME 200
 
-
-#define MAIN_MOTOR 3
+// Digital pin 11: DC Motor #1 / Stepper #1 (activation/speed control)
+// Digital pin 3: DC Motor #2 / Stepper #1 (activation/speed control)
+// Digital pin 5: DC Motor #3 / Stepper #2 (activation/speed control)
+// Digital pin 6: DC Motor #4 / Stepper #2 (activation/speed control)
+//Digital pin 4, 7, 8 and 12 are used to drive the DC/Stepper motors via the 74HC595 serial-to-parallel latch
+// Digitals pin 9: Servo #1 control
+// Digital pin 10: Servo #2 control
+// Digital pin 2 unused
+#define MAIN_MOTOR 1 //Huy.LH new reborn
 // Motor speed
 // MIN_SPEED to run is 140
 #define MOTOR_MAX_SPEED 255
@@ -84,7 +95,7 @@ extern float g_startBoostTime;
 
 //khai add
 #define HARDTURN_ANGLE 35
-#define STEERING_SMALL_ANGLE 35
+#define STEERING_LIGHT_ANGLE 20
 #define STEERING_BACK_ANGLE 20
 //khai end
 
@@ -102,13 +113,17 @@ extern float g_startBoostTime;
 #define SERVO_LEFT_MAX 29
 #define SERVO_RIGHT_MAX 170
 
+#define STEERING_HARD_LEFT SERVO_FRONT_ANGLE + HARDTURN_ANGLE
+#define STEERING_LIGHT_LEFT SERVO_FRONT_ANGLE + STEERING_LIGHT_ANGLE
+#define STEERING_HARD_RIGHT SERVO_FRONT_ANGLE - HARDTURN_ANGLE
+#define STEERING_LIGHT_RIGHT SERVO_FRONT_ANGLE - STEERING_LIGHT_ANGLE
 //Huy.LH -
 
 extern bool g_needUpdateMotor;
 
 //IR Distance --------------------------------------------------
-#define USED_IR 0
-#if USED_IR
+#define USE_IR 1
+#if USE_IR
  #define IR_DISTANCE ir_distance::GetInstance()
 #endif
 //Distance --------------------------------------------------

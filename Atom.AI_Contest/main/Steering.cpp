@@ -124,7 +124,7 @@ void steering::updateSteeringServo()
 				{
 					//turn right at 110 degree
 					//DEBUG_PRINTLN("+ - - turn right at 110 degree");
-					STEERING->setServoTurn(SERVO_FRONT_ANGLE - STEERING_SMALL_ANGLE);
+					STEERING->setServoTurn(STEERING_LIGHT_RIGHT);
 				}
 				break;
 			case FRONT_WALL: // - + -
@@ -132,25 +132,24 @@ void steering::updateSteeringServo()
 				{
 					//turn left at 45 degree
 					//DEBUG_PRINTLN("- + - turn left at 45 degree");
-					STEERING->setServoTurn(SERVO_FRONT_ANGLE + HARDTURN_ANGLE);
+					STEERING->setServoTurn(STEERING_HARD_LEFT);
 				} else
 				{
 					//turn right at 135 degree
 					//DEBUG_PRINTLN("- + - turn right at 135 degree");
-					STEERING->setServoTurn(SERVO_FRONT_ANGLE - HARDTURN_ANGLE);
+					STEERING->setServoTurn(STEERING_HARD_RIGHT);
 				}
 				break;
 			case LEFT_FRONT_WALL: // + + -
-				//turn right at 135 degree
-				//DEBUG_PRINTLN("+ + - turn right at 135 degree");
-				STEERING->setServoTurn(SERVO_FRONT_ANGLE - HARDTURN_ANGLE);
+				//turn right at STEERING_HARD_RIGHT
+				STEERING->setServoTurn(STEERING_HARD_RIGHT);
 				break;
 			case RIGHT_WALL: // - - +
 				if(DIRECTION->isFollowLeft)
 				{
 					//turn left at 70 degree
 					//DEBUG_PRINTLN("- - + turn left at 70 degree");
-					STEERING->setServoTurn(SERVO_FRONT_ANGLE + STEERING_SMALL_ANGLE);
+					STEERING->setServoTurn(STEERING_LIGHT_LEFT);
 				} else
 				{
 					//90 degree, forward
@@ -166,7 +165,7 @@ void steering::updateSteeringServo()
 			case FRONT_RIGHT_WALL: // - + +
 				//turn left at 45 degree
 				//DEBUG_PRINTLN("- + + turn left at 45 degree");
-				STEERING->setServoTurn(SERVO_FRONT_ANGLE + HARDTURN_ANGLE);
+				STEERING->setServoTurn(STEERING_HARD_LEFT);
 				break;
 			case ALL_WALL: // + + +
 				//90 degree, backward
