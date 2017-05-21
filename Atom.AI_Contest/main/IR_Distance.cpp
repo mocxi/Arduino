@@ -14,6 +14,8 @@ ir_distance* ir_distance::GetInstance()
 ir_distance::ir_distance()
 {
 	IR_status[4] = {false};
+	IR_stuck_status[4] = {false};
+	IR_start_counter_time[4] = {0};
 }
 
 bool ir_distance::getIR_Status(const IR& ir)
@@ -44,6 +46,11 @@ bool ir_distance::getIR_Status(const IR& ir)
 	}
 }
 
+bool ir_distance::IsThereAnyStuck()
+{
+	return IR_stuck_status[IR_1] || IR_stuck_status[IR_2] || IR_stuck_status[IR_3] || IR_stuck_status[IR_4];
+}
+
 void ir_distance::init()
 {
 	pinMode(IR_PIN_1,INPUT);
@@ -59,8 +66,21 @@ void ir_distance::updateIR_distance()
 	IR_status[2]=digitalRead(IR_PIN_3);
 	IR_status[3]=digitalRead(IR_PIN_4);
 
-	for (int i = 0 ; i < 4 ; i++)
+	for (int i = 0 ; i < IR_COUNT ; i++)
 	{
+		if(!IR_status[i])
+		{
+			IR_start_counter_time[i] = 0;
+			IR_stuck_status[i] = false;
+		}
+		else if(IR_start_counter_time[i] == 0) //if wall detected
+		{
+			IR_start_counter_time[i] = millis();
+		} else if((millis() - IR_start_counter_time[i]) > IR_STUCK_INTERVAL) //if wall detected for a long time
+		{
+			IR_stuck_status[i] = true;
+		}
+
 		DBG("updateir_distance [] ");
 		DBG((String)i);
 		DBG ("] : ");
