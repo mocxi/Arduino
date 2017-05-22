@@ -63,7 +63,11 @@ void direction::updateDirection(const uint8_t d_left, const uint8_t d_front, con
 
 
 	isSlowSpeed = (d_front < SLOW_SPEED_DISTANCE_FRONT_WALL);
-	if((d_front < MIN_FRONT_DISTANCE) || (d_right < MIN_SIDE_DISTANCE) || (d_left < MIN_SIDE_DISTANCE))
+	if((d_front < MIN_FRONT_DISTANCE)
+		|| (d_right < MIN_SIDE_DISTANCE)
+		|| (d_left < MIN_SIDE_DISTANCE)
+		|| IR_DISTANCE->IsThereAnyStuck()
+	)
 	{
 		DISTANCE->m_isMinFront = true;
 	}

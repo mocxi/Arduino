@@ -4,6 +4,10 @@
 #include "Define.h"
 #include <DebugUtils.h>
 
+#if USE_IR
+	#include "IR_Distance.h"
+#endif
+
 #ifndef DEBUG_PRINT
 #define DEBUG_PRINT(str) Serial.print(str)
 #define DEBUG_PRINTLN(str) Serial.println(str)
@@ -74,14 +78,28 @@ void MotorController::updateMotor(uint8_t g_current_condition,bool isFollowLeft)
 		bool steeringResult = false;
 		if(STEERING->isSteeringRight)
 		{
-			steeringResult = STEERING->setServoTurn(SERVO_FRONT_ANGLE + (SERVO_FRONT_ANGLE - STEERING->SteeringAngle_Current)/2);
+			steeringResult = STEERING->setServoTurn(SERVO_FRONT_ANGLE + STEERING_BACK_ANGLE);
 		}
 		else if(STEERING->isSteeringLeft)
 		{
-			steeringResult = STEERING->setServoTurn(SERVO_FRONT_ANGLE - (STEERING->SteeringAngle_Current - SERVO_FRONT_ANGLE)/2);
+			steeringResult = STEERING->setServoTurn(SERVO_FRONT_ANGLE - STEERING_BACK_ANGLE);
 		}
 		else{
-			if(DISTANCE->d_left > DISTANCE->d_right)
+		#if USE_IR
+			if(IR_DISTANCE->getIR_Status(ir_distance::IR_LEFT))
+			{
+
+			}
+			else if(IR_DISTANCE->getIR_Status(ir_distance::IR_RIGHT))
+			{
+
+			}
+			else
+			{
+				steeringResult = STEERING->setServoTurn(SERVO_FRONT_ANGLE + (DIRECTION->isFollowLeft? -STEERING_BACK_ANGLE : STEERING_BACK_ANGLE));
+			}
+		#else
+			if(DISTANCE->d_left > DISTANCE->d_right * 1.5)
 			{
 				steeringResult = STEERING->setServoTurn(SERVO_FRONT_ANGLE - STEERING_BACK_ANGLE);
 			}
@@ -89,13 +107,19 @@ void MotorController::updateMotor(uint8_t g_current_condition,bool isFollowLeft)
 			{
 				steeringResult = STEERING->setServoTurn(SERVO_FRONT_ANGLE + STEERING_BACK_ANGLE);
 			}
+		#endif
 		}
+
 		if(steeringResult)
 		{
 			is_go_FORWARD = false;
 			motor(MAIN_MOTOR, BACKWARD, MOTOR_BACKWARD_SPEED);
 			m_isBackward = true;
 			last_trigger_backward = millis();
+		}
+		else
+		{
+			motor(MAIN_MOTOR, BACKWARD, 0);
 		}
 	}
 	//else if(DISTANCE->isSlowSpeed)

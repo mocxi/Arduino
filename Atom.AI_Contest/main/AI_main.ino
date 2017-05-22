@@ -100,7 +100,7 @@ void loop()
 	//Update distance from IR sensor
 
 	//Update direction base on distance
-	DIRECTION->updateDirection(DISTANCE->d_left,DISTANCE->d_front,DISTANCE->d_right);
+
 	//Huy.LH + Backward to escape wall stuck
 	if(MOTOR->m_isBackward)
 	{
@@ -112,21 +112,23 @@ void loop()
 		else
 		{
 			LCD_PRINT_1 (0,"LOOP RETURN");
-			return;
+			//return;
 		}
 
 	}
   else
   {
+    //Direction 1st
+    DIRECTION->updateDirection(DISTANCE->d_left,DISTANCE->d_front,DISTANCE->d_right);
+    //Steering 2nd
+    STEERING->updateSteeringServo();
 
+    	//Update speed for motor base on direction : Back <-> Forward
+    MOTOR->updateMotor(DIRECTION->g_current_condition,DIRECTION->isFollowLeft);
   }
 
 
-	//Update speed for motor base on direction : Back <-> Forward
-	MOTOR->updateMotor(DIRECTION->g_current_condition,DIRECTION->isFollowLeft);
 
-	//try to balance the race
-	STEERING->updateSteeringServo();
 	// Debug +
 	LCD_PRINT_1 (0,"B:" + (String)MOTOR->m_isBackward + " Spd:" + (String)MOTOR->g_currentSpeed);
 
