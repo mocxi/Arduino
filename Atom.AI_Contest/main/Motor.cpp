@@ -88,11 +88,11 @@ void MotorController::updateMotor(uint8_t g_current_condition,bool isFollowLeft)
 		#if USE_IR
 			if(IR_DISTANCE->getIR_Status(ir_distance::IR_LEFT))
 			{
-
+				steeringResult = STEERING->setServoTurn(SERVO_FRONT_ANGLE + STEERING_BACK_ANGLE);
 			}
 			else if(IR_DISTANCE->getIR_Status(ir_distance::IR_RIGHT))
 			{
-
+				steeringResult = STEERING->setServoTurn(SERVO_FRONT_ANGLE - STEERING_BACK_ANGLE);
 			}
 			else
 			{

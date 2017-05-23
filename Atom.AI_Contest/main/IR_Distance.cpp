@@ -61,10 +61,10 @@ void ir_distance::init()
 
 void ir_distance::updateIR_distance()
 {
-	IR_status[0]=digitalRead(IR_PIN_1);
-	IR_status[1]=digitalRead(IR_PIN_2);
-	IR_status[2]=digitalRead(IR_PIN_3);
-	IR_status[3]=digitalRead(IR_PIN_4);
+	IR_status[0]= !digitalRead(IR_PIN_1);
+	IR_status[1]= !digitalRead(IR_PIN_2);
+	IR_status[2]= !digitalRead(IR_PIN_3);
+	IR_status[3]= !digitalRead(IR_PIN_4);
 
 	for (int i = 0 ; i < IR_COUNT ; i++)
 	{
@@ -81,10 +81,10 @@ void ir_distance::updateIR_distance()
 			IR_stuck_status[i] = true;
 		}
 
-		DBG("updateir_distance [] ");
-		DBG((String)i);
-		DBG ("] : ");
-		DBG_LN((String)IR_status[i]);
+		//DBG(" -- [");
+		//DBG((String)i);
+		//DBG ("] : ");
+		//DBG((String)IR_status[i]);
 	}
-
+	//DBG_LN(" ");
 }

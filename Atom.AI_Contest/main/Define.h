@@ -14,7 +14,7 @@
 #define TEST_PING 0
 //khai end
 //Huy.LH encoder
-#define USE_ENCODER 1
+#define USE_ENCODER 0
 #if USE_ENCODER
 #define ENCODER encoder::GetInstance()
 #endif
@@ -35,7 +35,7 @@
 // Digitals pin 9: Servo #1 control
 // Digital pin 10: Servo #2 control
 // Digital pin 2 unused
-#define MAIN_MOTOR 1 //Huy.LH new reborn
+#define MAIN_MOTOR 3 //Huy.LH new reborn
 // Motor speed
 // MIN_SPEED to run is 140
 #define MOTOR_MAX_SPEED 255
@@ -73,7 +73,7 @@ extern float g_startBoostTime;
 
 #define SERVO_UPDATE_DELAY 1000
 #define SERVO1_PWM 10
-#define SERVO2_PWM 9
+//#define SERVO2_PWM 9
 
 // Servo angles in degrees , from 0 -> 180
 #define A_0 0 // init value
@@ -122,7 +122,7 @@ extern float g_startBoostTime;
 extern bool g_needUpdateMotor;
 
 //IR Distance --------------------------------------------------
-#define USE_IR 0
+#define USE_IR 1
 #if USE_IR
  #define IR_DISTANCE ir_distance::GetInstance()
 #endif

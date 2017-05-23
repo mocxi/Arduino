@@ -21,10 +21,15 @@
 #define MOTOR4_B 6
 
 // Arduino pins for the PWM signals.
-#define MOTOR1_PWM 11
-#define MOTOR2_PWM 3
+// #define MOTOR1_PWM 11
+// #define MOTOR2_PWM 3M
+// #define MOTOR3_PWM 6
+// #define MOTOR4_PWM 5
+
+#define MOTOR1_PWM 6
+#define MOTOR2_PWM 6
 #define MOTOR3_PWM 6
-#define MOTOR4_PWM 5
+#define MOTOR4_PWM 6
 
 extern bool is_go_FORWARD;
 #define BOOST_MOTOR_TIME 500 //micros
