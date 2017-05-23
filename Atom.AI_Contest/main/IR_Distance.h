@@ -5,14 +5,17 @@
 #include "Arduino.h"
 #include "Steering.h"
 
+// Digital pin 11: DC Motor #1 / Stepper #1 (activation/speed control)
 // Digital pin 3: DC Motor #2 / Stepper #1 (activation/speed control)
 // Digital pin 5: DC Motor #3 / Stepper #2 (activation/speed control)
 // Digital pin 6: DC Motor #4 / Stepper #2 (activation/speed control)
+//Digital pin 4, 7, 8 and 12 are used to drive the DC/Stepper motors via the 74HC595 serial-to-parallel latch
+// Digitals pin 9: Servo #1 control
 // Digital pin 10: Servo #2 control
 #define IR_PIN_1 3
-#define IR_PIN_2 4
-#define IR_PIN_3 6
-#define IR_PIN_4 10
+#define IR_PIN_2 6
+#define IR_PIN_3 10
+#define IR_PIN_4 11
 
 #define IR_STUCK_INTERVAL 2000
 

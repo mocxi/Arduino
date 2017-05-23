@@ -66,7 +66,9 @@ void direction::updateDirection(const uint8_t d_left, const uint8_t d_front, con
 	if((d_front < MIN_FRONT_DISTANCE)
 		|| (d_right < MIN_SIDE_DISTANCE)
 		|| (d_left < MIN_SIDE_DISTANCE)
+#if USE_IR
 		|| IR_DISTANCE->IsThereAnyStuck()
+#endif
 	)
 	{
 		DISTANCE->m_isMinFront = true;
