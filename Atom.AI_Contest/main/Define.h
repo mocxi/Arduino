@@ -122,7 +122,7 @@ extern float g_startBoostTime;
 extern bool g_needUpdateMotor;
 
 //IR Distance --------------------------------------------------
-#define USE_IR 1
+#define USE_IR 0
 #if USE_IR
  #define IR_DISTANCE ir_distance::GetInstance()
 #endif
@@ -132,8 +132,8 @@ extern bool g_needUpdateMotor;
 #define DIRECTION direction::GetInstance()
 
 #define PING_PIN_FRONT  A0 // Arduino pin for both trig and echo
-#define PING_PIN_RIGHT  A1 // Arduino pin for both trig and echo
-#define PING_PIN_LEFT   A2 // Arduino pin for both trig and echo
+#define PING_PIN_RIGHT  A2 // Arduino pin for both trig and echo
+#define PING_PIN_LEFT   A1 // Arduino pin for both trig and echo
 
 #define MIN_DELAY_SONAR_TIME 40 //milliseconds
 #define CHECK_DISTANCE_DELAY 100

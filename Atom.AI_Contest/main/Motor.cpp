@@ -119,7 +119,8 @@ void MotorController::updateMotor(uint8_t g_current_condition,bool isFollowLeft)
 		}
 		else
 		{
-			motor(MAIN_MOTOR, BACKWARD, 0);
+			DBG("Motor do not thing!");
+			//motor(MAIN_MOTOR, BACKWARD, 0);
 		}
 	}
 	//else if(DISTANCE->isSlowSpeed)
@@ -153,14 +154,15 @@ void MotorController::updateMotor(uint8_t g_current_condition,bool isFollowLeft)
 
 void MotorController::motor(int nMotor, int command, int speed, bool needCheckBoost)
 {
-	DBG("command: ");
-	DBG(command);
-	DBG(", speed: ");
-	DBG_LN(speed);
+
 	if(g_currentSpeed == speed)
 	{
 		return;
 	}
+	DBG("command: ");
+	DBG(command);
+	DBG(", speed: ");
+	DBG_LN(speed);
 	g_currentCommand = command;
 	g_currentSpeed = speed;
 	// if(0)

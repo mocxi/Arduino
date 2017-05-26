@@ -22,7 +22,7 @@
 
 // Arduino pins for the PWM signals.
 // #define MOTOR1_PWM 11
-// #define MOTOR2_PWM 3M
+// #define MOTOR2_PWM 3
 // #define MOTOR3_PWM 6
 // #define MOTOR4_PWM 5
 

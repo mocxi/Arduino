@@ -41,7 +41,7 @@ bool steering::setServoTurn(uint8_t angle)
 {
 	//SteeringServo.write(angle);
 	//return;
-	if(STEERING_OFF || Last_write_servo > (millis() - SERVO_UPDATE_DELAY))
+	if(STEERING_OFF || (Last_write_servo > (millis() - SERVO_UPDATE_DELAY)))
 	{
 		//off steering
 		return false;
@@ -99,6 +99,7 @@ void steering::updateSteeringServo()
 		{
 			isSteeringLeft = false;
 			isSteeringRight = false;
+			DBG("steering time out!");
 			setServoTurn(SERVO_FRONT_ANGLE);
 		}
 	}
