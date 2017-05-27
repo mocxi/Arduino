@@ -39,9 +39,9 @@
 // Motor speed
 // MIN_SPEED to run is 140
 #define MOTOR_MAX_SPEED 255
-#define MOTOR_NORMAL_SPEED 200
+#define MOTOR_NORMAL_SPEED 255
 //#define MOTOR_LOW_SPEED 140
-#define MOTOR_BACKWARD_SPEED 140 //80
+#define MOTOR_BACKWARD_SPEED 255 //80
 #define MOTOR_BOOST_SPEED 255
 
 enum WALL_CONDITION{
@@ -71,7 +71,7 @@ extern float g_startBoostTime;
 // SERVO ----------------------------------------------------------
 #define STEERING steering::GetInstance()
 
-#define SERVO_UPDATE_DELAY 1000
+#define SERVO_UPDATE_DELAY 1500
 #define SERVO1_PWM 10
 //#define SERVO2_PWM 9
 
@@ -107,7 +107,7 @@ extern float g_startBoostTime;
 //Huy.LH -
 
 //Huy.LH + define server angle
-#define SERVO_FRONT_ANGLE 75
+#define SERVO_FRONT_ANGLE 78
 #define SERVO_LEFT_45 45
 #define SERVO_RIGHT_45 135
 #define SERVO_LEFT_MAX 29
@@ -122,7 +122,7 @@ extern float g_startBoostTime;
 extern bool g_needUpdateMotor;
 
 //IR Distance --------------------------------------------------
-#define USE_IR 1
+#define USE_IR 0
 #if USE_IR
  #define IR_DISTANCE ir_distance::GetInstance()
 #endif
@@ -144,12 +144,12 @@ extern bool g_needUpdateMotor;
 
 #define MAX_FRONT_DISTANCE 100
 #define MIN_FRONT_DISTANCE 30
-#define MIN_SIDE_DISTANCE 10
+#define MIN_SIDE_DISTANCE 9
 
 #define MIN_DISTANCE 3
 #define DELTA_DISTANCE 30
-#define MAX_DISTANCE_FROM_WALL 80
-#define MAX_DISTANCE_FRONT_WALL 70
+#define MAX_DISTANCE_FROM_WALL 40
+#define MAX_DISTANCE_FRONT_WALL 30
 #define SLOW_SPEED_DISTANCE_FRONT_WALL 95
 
 #define DISTANCE_NEED_SIDE_STEERING 20

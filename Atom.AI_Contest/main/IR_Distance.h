@@ -12,7 +12,7 @@
 //Digital pin 4, 7, 8 and 12 are used to drive the DC/Stepper motors via the 74HC595 serial-to-parallel latch
 // Digitals pin 10: Servo #1 control
 // Digital pin 9: Servo #2 control
-#define IR_PIN_1 3
+#define IR_PIN_1 2
 #define IR_PIN_2 5
 #define IR_PIN_3 9
 #define IR_PIN_4 11

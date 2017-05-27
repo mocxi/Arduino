@@ -51,6 +51,8 @@ bool steering::setServoTurn(uint8_t angle)
 	{
 		return true;
 	}
+	DBG("setServoTurn: ");
+	DBG_LN(angle);
 	//check range first 0-180
 	if(angle > SERVO_LEFT_MAX && angle < SERVO_RIGHT_MAX)
 	{

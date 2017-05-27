@@ -187,7 +187,7 @@ void MotorController::updateMotor(uint8_t g_current_condition,bool isFollowLeft)
 void MotorController::motor(int nMotor, int command, int speed, bool needCheckBoost)
 {
 
-	if(g_currentSpeed == speed)
+	if(g_currentSpeed == speed && g_currentCommand == command)
 	{
 		return;
 	}
@@ -274,14 +274,16 @@ void MotorController::motor(int nMotor, int command, int speed, bool needCheckBo
 
 void MotorController::motor(int command, int speed, bool needCheckBoost)
 {
+
+
+	if(g_currentSpeed == speed && g_currentCommand == command)
+	{
+		return;
+	}
 	DBG("command: ");
 	DBG(command);
 	DBG(", speed: ");
 	DBG_LN(speed);
-	if(g_currentSpeed == speed)
-	{
-		return;
-	}
 	g_currentCommand = command;
 	g_currentSpeed = speed;
 
