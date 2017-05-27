@@ -99,7 +99,7 @@ void steering::updateSteeringServo()
 		{
 			isSteeringLeft = false;
 			isSteeringRight = false;
-			DBG("steering time out!");
+			//DBG("steering time out!");
 			setServoTurn(SERVO_FRONT_ANGLE);
 		}
 	}

@@ -23,10 +23,10 @@ class ir_distance{
 private:
 public:
   enum IR{
-    IR_4 = 0,
-    IR_3,
+    IR_1 = 0,
     IR_2,
-    IR_1,
+    IR_3,
+    IR_4,
     IR_COUNT,
     IR_LEFT,
     IR_RIGHT,

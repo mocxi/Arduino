@@ -40,12 +40,15 @@ private:
   void shiftWrite(int output, int high_low);
 public:
   MotorController();
+  MotorController(int nMotor);
+  int motorA, motorB;
   bool m_isBackward;
   uint16_t last_trigger_backward;
 
 	void init();
 	void motor_output (int output, int high_low, int speed);
 	void motor(int nMotor, int command, int speed, bool needCheckBoost = true);
+	void motor(int command, int speed, bool needCheckBoost = true);
 	void updateMotor(uint8_t g_current_condition, bool isFollowLeft);
 
 

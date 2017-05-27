@@ -20,12 +20,42 @@ MotorController::MotorController()
 	last_trigger_backward = millis();
 }
 
+MotorController::MotorController(int nMotor)
+{
+	last_trigger_backward = millis();
+
+    switch (nMotor)
+    {
+		case 1:
+		  motorA   = MOTOR1_A;
+		  motorB   = MOTOR1_B;
+		  break;
+		case 2:
+		  motorA   = MOTOR2_A;
+		  motorB   = MOTOR2_B;
+		  break;
+		case 3:
+		  motorA   = MOTOR3_A;
+		  motorB   = MOTOR3_B;
+		  break;
+		case 4:
+		  motorA   = MOTOR4_A;
+		  motorB   = MOTOR4_B;
+		  break;
+		default:
+		  motorA   = MOTOR1_A;
+		  motorB   = MOTOR1_B;
+		  break;
+	}
+}
+
 MotorController* MotorController::GetInstance()
 {
 	static MotorController* _motorCtr = NULL;
 	if(!_motorCtr)
 	{
-		_motorCtr = new MotorController();
+		// _motorCtr = new MotorController();
+		_motorCtr = new MotorController(MAIN_MOTOR);
 	}
 	return _motorCtr;
 }
@@ -119,7 +149,7 @@ void MotorController::updateMotor(uint8_t g_current_condition,bool isFollowLeft)
 		}
 		else
 		{
-			DBG("Motor do not thing!");
+			//DBG("Motor do not thing!");
 			//motor(MAIN_MOTOR, BACKWARD, 0);
 		}
 	}
@@ -132,20 +162,22 @@ void MotorController::updateMotor(uint8_t g_current_condition,bool isFollowLeft)
 	//}
 	else if(STEERING->isSteeringRight || STEERING->isSteeringLeft)
 	{
-		DBG("updateMotor Go FORWARD !!");
+		//DBG("updateMotor Go FORWARD !!");
 		is_go_FORWARD = true;
 
 		if(g_currentSpeed == MOTOR_MAX_SPEED)
 		{
 			//motor(MAIN_MOTOR, FORWARD, 0);
-			delay(500);
+			//delay(500);
 		}
-		motor(MAIN_MOTOR, FORWARD, MOTOR_NORMAL_SPEED);
+		//motor(MAIN_MOTOR, FORWARD, MOTOR_NORMAL_SPEED);
+		motor(FORWARD, MOTOR_NORMAL_SPEED);
 
 	}
 	else
 	{
-		motor(MAIN_MOTOR, FORWARD, MOTOR_MAX_SPEED);
+		//motor(MAIN_MOTOR, FORWARD, MOTOR_MAX_SPEED);
+		motor(FORWARD, MOTOR_MAX_SPEED);
 	}
 	g_needUpdateMotor = false;
 }
@@ -159,10 +191,10 @@ void MotorController::motor(int nMotor, int command, int speed, bool needCheckBo
 	{
 		return;
 	}
-	DBG("command: ");
-	DBG(command);
-	DBG(", speed: ");
-	DBG_LN(speed);
+	//DBG("command: ");
+	//DBG(command);
+	//DBG(", speed: ");
+	//DBG_LN(speed);
 	g_currentCommand = command;
 	g_currentSpeed = speed;
 	// if(0)
@@ -239,6 +271,42 @@ void MotorController::motor(int nMotor, int command, int speed, bool needCheckBo
   }
 }
 
+
+void MotorController::motor(int command, int speed, bool needCheckBoost)
+{
+	DBG("command: ");
+	DBG(command);
+	DBG(", speed: ");
+	DBG_LN(speed);
+	if(g_currentSpeed == speed)
+	{
+		return;
+	}
+	g_currentCommand = command;
+	g_currentSpeed = speed;
+
+    switch (command)
+    {
+    case FORWARD:
+      motor_output (motorA, HIGH, speed);
+      motor_output (motorB, LOW, -1);     // -1: no PWM set
+      break;
+    case BACKWARD:
+      motor_output (motorA, LOW, speed);
+      motor_output (motorB, HIGH, -1);    // -1: no PWM set
+      break;
+    case BRAKE:
+      motor_output (motorA, LOW, 255); // 255: fully on.
+      motor_output (motorB, LOW, -1);  // -1: no PWM set
+      break;
+    case RELEASE:
+      motor_output (motorA, LOW, 0);  // 0: output floating.
+      motor_output (motorB, LOW, -1); // -1: no PWM set
+      break;
+    default:
+      break;
+    }
+}
 
 // ---------------------------------
 // motor_output

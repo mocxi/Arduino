@@ -81,10 +81,10 @@ void ir_distance::updateIR_distance()
 			IR_stuck_status[i] = true;
 		}
 
-		//DBG(" -- [");
-		//DBG((String)i);
-		//DBG ("] : ");
-		//DBG((String)IR_status[i]);
+		DBG(" -- [");
+		DBG((String)(i+1));
+		DBG ("] : ");
+		DBG((String)IR_status[i]);
 	}
-	//DBG_LN(" ");
+	DBG_LN(" ");
 }
