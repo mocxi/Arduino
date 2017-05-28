@@ -24,8 +24,8 @@
 #define MOTOR_OFF 0
 #define STEERING_OFF 0
 
-#define BACKWARD_DELAY 100
-#define BACKWARD_TIME 200
+#define BACKWARD_DELAY 500
+#define BACKWARD_TIME 1000
 
 // Digital pin 11: DC Motor #1 / Stepper #1 (activation/speed control)
 // Digital pin 3: DC Motor #2 / Stepper #1 (activation/speed control)
@@ -107,7 +107,7 @@ extern float g_startBoostTime;
 //Huy.LH -
 
 //Huy.LH + define server angle
-#define SERVO_FRONT_ANGLE 78
+#define SERVO_FRONT_ANGLE 85
 #define SERVO_LEFT_45 45
 #define SERVO_RIGHT_45 135
 #define SERVO_LEFT_MAX 29
@@ -143,13 +143,13 @@ extern bool g_needUpdateMotor;
 #define MAX_DISTANCE 100
 
 #define MAX_FRONT_DISTANCE 100
-#define MIN_FRONT_DISTANCE 30
+#define MIN_FRONT_DISTANCE 15
 #define MIN_SIDE_DISTANCE 9
 
 #define MIN_DISTANCE 3
 #define DELTA_DISTANCE 30
 #define MAX_DISTANCE_FROM_WALL 40
-#define MAX_DISTANCE_FRONT_WALL 30
+#define MAX_DISTANCE_FRONT_WALL 50
 #define SLOW_SPEED_DISTANCE_FRONT_WALL 95
 
 #define DISTANCE_NEED_SIDE_STEERING 20

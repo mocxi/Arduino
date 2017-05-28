@@ -107,7 +107,7 @@ void loop()
 		if(MOTOR->last_trigger_backward < millis() - BACKWARD_TIME)
 		{
 			MOTOR->m_isBackward = false;
-//			delay(BACKWARD_DELAY);
+      delay(BACKWARD_DELAY);
 		}
 		else
 		{
@@ -119,7 +119,7 @@ void loop()
   else
   {
     MOTOR->updateMotor(DIRECTION->g_current_condition,DIRECTION->isFollowLeft);
-    
+
   }
   //Direction 1st
   DIRECTION->updateDirection(DISTANCE->d_left,DISTANCE->d_front,DISTANCE->d_right);

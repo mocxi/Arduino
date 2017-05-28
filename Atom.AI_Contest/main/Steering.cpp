@@ -108,7 +108,7 @@ void steering::updateSteeringServo()
 	if(!DISTANCE->m_isMinFront)
 	{
 		switch (DIRECTION->g_current_condition) {
-			case NO_WALL: // - - -
+			case NO_WALL: // - - - 0
 			{
 
 				//DEBUG_PRINT(g_current_condition);
@@ -117,7 +117,7 @@ void steering::updateSteeringServo()
 				break;
 			}
 
-			case LEFT_WALL: // + - -
+			case LEFT_WALL: // + - - 1
 				if(DIRECTION->isFollowLeft && DISTANCE->d_left > DISTANCE_NEED_SIDE_STEERING)
 				{
 					//90 degree, forward
@@ -130,7 +130,7 @@ void steering::updateSteeringServo()
 					STEERING->setServoTurn(STEERING_LIGHT_RIGHT);
 				}
 				break;
-			case FRONT_WALL: // - + -
+			case FRONT_WALL: // - + - 2
 				if(DIRECTION->isFollowLeft && DISTANCE->d_right > DISTANCE_NEED_SIDE_STEERING)
 				{
 					//turn left at 45 degree
@@ -143,11 +143,11 @@ void steering::updateSteeringServo()
 					STEERING->setServoTurn(STEERING_HARD_RIGHT);
 				}
 				break;
-			case LEFT_FRONT_WALL: // + + -
+			case LEFT_FRONT_WALL: // + + - 3
 				//turn right at STEERING_HARD_RIGHT
 				STEERING->setServoTurn(STEERING_HARD_RIGHT);
 				break;
-			case RIGHT_WALL: // - - +
+			case RIGHT_WALL: // - - + 4
 				if(DIRECTION->isFollowLeft)
 				{
 					//turn left at 70 degree
@@ -160,17 +160,17 @@ void steering::updateSteeringServo()
 					STEERING->setServoTurn(SERVO_FRONT_ANGLE);
 				}
 				break;
-			case LEFT_RIGHT_WALL: // + - +
+			case LEFT_RIGHT_WALL: // + - + 5
 				//90 degree, forward
 				//DEBUG_PRINTLN("+ - + 90 degree, forward");
 				STEERING->setServoTurn(SERVO_FRONT_ANGLE);
 				break;
-			case FRONT_RIGHT_WALL: // - + +
+			case FRONT_RIGHT_WALL: // - + + 6
 				//turn left at 45 degree
 				//DEBUG_PRINTLN("- + + turn left at 45 degree");
 				STEERING->setServoTurn(STEERING_HARD_LEFT);
 				break;
-			case ALL_WALL: // + + +
+			case ALL_WALL: // + + + 7
 				//90 degree, backward
 				//DEBUG_PRINTLN("+ + + 90 degree, slop detected, forward");
 				//turnSteeringServo(STRAIGHT, A_90);
