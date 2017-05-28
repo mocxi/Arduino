@@ -160,22 +160,22 @@ void MotorController::updateMotor(uint8_t g_current_condition,bool isFollowLeft)
 		//is_go_FORWARD = true;
 		//motor(MAIN_MOTOR, FORWARD, MOTOR_LOW_SPEED);
 	//}
-	else if(STEERING->isSteeringRight || STEERING->isSteeringLeft)
+	else if((STEERING->isSteeringRight
+		|| STEERING->isSteeringLeft
+		|| DISTANCE->isSlowSpeed)
+		&& last_trigger_backward > BACKWARD_TIME*2
+	)
 	{
 		//DBG("updateMotor Go FORWARD !!");
 		is_go_FORWARD = true;
 
-		if(g_currentSpeed == MOTOR_MAX_SPEED)
-		{
-			//motor(MAIN_MOTOR, FORWARD, 0);
-			//delay(500);
-		}
 		//motor(MAIN_MOTOR, FORWARD, MOTOR_NORMAL_SPEED);
 		motor(FORWARD, MOTOR_NORMAL_SPEED);
 
 	}
 	else
 	{
+		is_go_FORWARD = true;
 		//motor(MAIN_MOTOR, FORWARD, MOTOR_MAX_SPEED);
 		motor(FORWARD, MOTOR_MAX_SPEED);
 	}

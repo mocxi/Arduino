@@ -107,7 +107,7 @@ void loop()
 		if(MOTOR->last_trigger_backward < millis() - BACKWARD_TIME)
 		{
 			MOTOR->m_isBackward = false;
-      delay(BACKWARD_DELAY);
+      delay(BACKWARD_DELAY); //Huy.LH I think it need calm down for a while
 		}
 		else
 		{
@@ -132,6 +132,7 @@ void loop()
 
 
 	// Debug +
+  #if DEBUG_LCD
 	LCD_PRINT_1 (0,"B:" + (String)MOTOR->m_isBackward + " Spd:" + (String)MOTOR->g_currentSpeed);
 
 	LCD_PRINT_2 (0,"L" + (String)(DISTANCE->d_left) + " F" + (String) (DISTANCE->d_front) + " R" + (String) (DISTANCE->d_right) );
@@ -139,5 +140,6 @@ void loop()
 	//delay (1000);
 	lcd.backlight();
 	// Debug -
+  #endif
 
 }

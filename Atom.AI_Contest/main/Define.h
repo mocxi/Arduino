@@ -4,7 +4,13 @@
 //#include <DebugUtils.h> //error comiplie multi define
 
 #define DEBUG_BUILD
-#define DEBUG_LEVEL_INFO 1
+#if defined(DEBUG_BUILD)
+	#define DEBUG_LCD 0
+	#define DEBUG_LEVEL_INFO 1
+#else
+	#define DEBUG_LCD 0
+	#define DEBUG_LEVEL_INFO 1
+#endif
 #if DEBUG_LEVEL_INFO
 #define PRINT_LOG_DELAY 2000
 #endif
@@ -24,7 +30,7 @@
 #define MOTOR_OFF 0
 #define STEERING_OFF 0
 
-#define BACKWARD_DELAY 500
+#define BACKWARD_DELAY 200
 #define BACKWARD_TIME 1000
 
 // Digital pin 11: DC Motor #1 / Stepper #1 (activation/speed control)
@@ -39,10 +45,10 @@
 // Motor speed
 // MIN_SPEED to run is 140
 #define MOTOR_MAX_SPEED 255
-#define MOTOR_NORMAL_SPEED 255
+#define MOTOR_NORMAL_SPEED 180
 //#define MOTOR_LOW_SPEED 140
-#define MOTOR_BACKWARD_SPEED 255 //80
-#define MOTOR_BOOST_SPEED 255
+#define MOTOR_BACKWARD_SPEED 200 //80
+#define MOTOR_BOOST_SPEED 200
 
 enum WALL_CONDITION{
 	NO_WALL = 0,
@@ -71,7 +77,7 @@ extern float g_startBoostTime;
 // SERVO ----------------------------------------------------------
 #define STEERING steering::GetInstance()
 
-#define SERVO_UPDATE_DELAY 1500
+#define SERVO_UPDATE_DELAY 1000
 #define SERVO1_PWM 10
 //#define SERVO2_PWM 9
 

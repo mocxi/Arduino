@@ -126,12 +126,13 @@ void steering::updateSteeringServo()
 				} else
 				{
 					//turn right at 110 degree
+					DBG_LN("STEERING_LIGHT_RIGHT - 1");
 					//DEBUG_PRINTLN("+ - - turn right at 110 degree");
 					STEERING->setServoTurn(STEERING_LIGHT_RIGHT);
 				}
 				break;
 			case FRONT_WALL: // - + - 2
-				if(DIRECTION->isFollowLeft && DISTANCE->d_right > DISTANCE_NEED_SIDE_STEERING)
+				if(DIRECTION->isFollowLeft)
 				{
 					//turn left at 45 degree
 					//DEBUG_PRINTLN("- + - turn left at 45 degree");
@@ -148,10 +149,11 @@ void steering::updateSteeringServo()
 				STEERING->setServoTurn(STEERING_HARD_RIGHT);
 				break;
 			case RIGHT_WALL: // - - + 4
-				if(DIRECTION->isFollowLeft)
+				if(DIRECTION->isFollowLeft || DISTANCE->d_right < DISTANCE_NEED_SIDE_STEERING)
 				{
 					//turn left at 70 degree
 					//DEBUG_PRINTLN("- - + turn left at 70 degree");
+					DBG_LN("STEERING_LIGHT_LEFT - 4");
 					STEERING->setServoTurn(STEERING_LIGHT_LEFT);
 				} else
 				{
@@ -197,15 +199,15 @@ void steering::updateSteeringServo()
 		//delta left right bigger than 1/3 of distance 2 side
 		if(deltaDistance > ((DISTANCE->d_left + DISTANCE->d_right)/4) && !m_isBalancing)
 		{
-			//DBG("Balancing");
+			DBG("Balancing");
 			if(DISTANCE->d_left > DISTANCE->d_right)
 			{
-				//DBG_LN(" left");
+				DBG_LN(" left");
 				setServoTurn(SERVO_FRONT_ANGLE + STEERING_BALANCE_ANGLE);
 			}
 			else
 			{
-				//DBG_LN(" right");
+				DBG_LN(" right");
 				setServoTurn(SERVO_FRONT_ANGLE - STEERING_BALANCE_ANGLE);
 			}
 			m_isBalancing = true;
