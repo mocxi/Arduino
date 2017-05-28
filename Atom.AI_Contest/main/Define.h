@@ -107,7 +107,7 @@ extern float g_startBoostTime;
 //Huy.LH -
 
 //Huy.LH + define server angle
-#define SERVO_FRONT_ANGLE 85
+#define SERVO_FRONT_ANGLE 90
 #define SERVO_LEFT_45 45
 #define SERVO_RIGHT_45 135
 #define SERVO_LEFT_MAX 29

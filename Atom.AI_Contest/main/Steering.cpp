@@ -187,6 +187,10 @@ void steering::updateSteeringServo()
 		&& !(isSteeringLeft || isSteeringRight)
 		&& !MOTOR->m_isBackward
 		&& m_last_balancing < millis() - BALANCING_TIME
+		&& ((DISTANCE->d_left + DISTANCE->d_right) < 100 //Huy.LH add
+			|| DISTANCE->d_left < 20
+			|| DISTANCE->d_right < 20
+		)
 	)
 	{
 		int deltaDistance = fabs(DISTANCE->d_left - DISTANCE->d_right);
